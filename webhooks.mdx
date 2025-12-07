@@ -1,0 +1,145 @@
+---
+title: Webhooks
+description: Set up and manage webhooks for real-time documentation updates
+---
+
+## Webhooks Overview
+
+Webhooks allow you to receive real-time notifications when documentation changes occur in your mdarkplus spaces.
+
+<Callout kind="tip">
+  Webhooks are perfect for integrating documentation updates into your CI/CD pipeline or notification systems.
+</Callout>
+
+## Setting Up Webhooks
+
+Create and configure webhooks to listen for documentation events.
+
+<Steps>
+  <Step title="Create Webhook" icon="plus-circle">
+    Go to your space settings and add a new webhook.
+  </Step>
+  <Step title="Configure Events" icon="settings">
+    Select which events trigger the webhook.
+    
+    <CodeGroup tabs="JSON,Example">
+      ```json
+{
+  "url": "https://your-app.com/webhook",
+  "events": ["document.created", "document.updated"],
+  "secret": "your-webhook-secret"
+}
+```
+      ```json
+{
+  "event": "document.updated",
+  "document": {
+    "id": "doc-123",
+    "title": "Updated Guide"
+  }
+}
+```
+    </CodeGroup>
+  </Step>
+  <Step title="Test Webhook" icon="check-circle">
+    Send a test event to verify your endpoint.
+  </Step>
+</Steps>
+
+## Event Types
+
+Different events trigger webhooks for various documentation actions.
+
+<Tabs>
+  <Tab title="Document Events" icon="file-text">
+    Events related to document creation and modification.
+    
+    <Expandable title="Available Events">
+      - document.created
+      - document.updated
+      - document.deleted
+    </Expandable>
+  </Tab>
+  <Tab title="Space Events" icon="folder">
+    Events for space-level changes.
+    
+    <Expandable title="Space Events List">
+      - space.created
+      - space.updated
+      - member.added
+    </Expandable>
+  </Tab>
+</Tabs>
+
+## Security and Verification
+
+Ensure your webhooks are secure with proper verification.
+
+<ExpandableGroup>
+  <Expandable title="Signature Verification">
+    Verify webhook signatures to ensure authenticity.
+  </Expandable>
+  <Expandable title="HTTPS Required">
+    Webhook URLs must use HTTPS for security.
+  </Expandable>
+  <Expandable title="Rate Limiting">
+    Implement rate limiting to handle high volumes.
+  </Expandable>
+</ExpandableGroup>
+
+## Handling Webhooks
+
+Process incoming webhook payloads in your application.
+
+<Columns cols={2}>
+  <div>
+    <h3>Node.js Example</h3>
+    ```javascript
+const express = require('express');
+const crypto = require('crypto');
+
+const app = express();
+app.post('/webhook', (req, res) => {
+  const signature = req.headers['x-mdarkplus-signature'];
+  // Verify signature
+  res.sendStatus(200);
+});
+```
+  </div>
+  <div>
+    <h3>Python Example</h3>
+    ```python
+from flask import Flask, request
+import hmac
+
+app = Flask(__name__)
+
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    signature = request.headers.get('X-mdarkplus-Signature')
+    # Verify signature
+    return 'OK', 200
+```
+  </div>
+</Columns>
+
+## Best Practices
+
+Optimize your webhook implementation for reliability.
+
+| Practice | Benefit |
+|----------|---------|
+| Idempotent handling | Prevents duplicate processing |
+| Retry logic | Handles temporary failures |
+| Logging | Enables debugging and monitoring |
+
+## Troubleshooting
+
+Common webhook issues and solutions.
+
+<Update label="2024-10-14" description="Webhook Improvements" tags={["feature"]}>
+## Webhook Enhancements
+
+- Added new event types
+- Improved security features
+</Update>

@@ -1,0 +1,120 @@
+---
+title: Authentication
+description: Learn how to authenticate with mdarkplus API and manage access tokens
+---
+
+## Authentication Overview
+
+mdarkplus uses API keys for authentication, ensuring secure access to your documentation spaces. This page covers different authentication methods and best practices for managing access.
+
+<Callout kind="tip">
+  Always keep your API keys secure and rotate them regularly for maximum security.
+</Callout>
+
+## API Key Authentication
+
+To authenticate with the mdarkplus API, you need an API key. You can generate keys from your dashboard.
+
+<Steps>
+  <Step title="Generate Key" icon="key">
+    Log into your mdarkplus dashboard and navigate to the API keys section.
+  </Step>
+  <Step title="Configure Headers" icon="settings">
+    Include the API key in your request headers.
+    
+    <CodeGroup tabs="cURL,Bash">
+      ```bash
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+     https://api.mdarkplus.com/v1/documents
+```
+      ```bash
+export MDARKPLUS_API_KEY="your-api-key"
+curl -H "Authorization: Bearer $MDARKPLUS_API_KEY" \
+     https://api.mdarkplus.com/v1/documents
+```
+    </CodeGroup>
+  </Step>
+  <Step title="Verify Access" icon="check-circle">
+    Make a test request to confirm authentication is working.
+  </Step>
+</Steps>
+
+## OAuth Integration
+
+For applications requiring user-specific access, mdarkplus supports OAuth 2.0.
+
+<Tabs>
+  <Tab title="Web Apps" icon="globe">
+    Use the authorization code flow for web applications.
+    
+    <Expandable title="Implementation Steps">
+      1. Redirect users to mdarkplus authorization URL
+      2. Handle the authorization code response
+      3. Exchange code for access token
+      4. Use token for API requests
+    </Expandable>
+  </Tab>
+  <Tab title="Mobile Apps" icon="smartphone">
+    Implement PKCE flow for mobile applications.
+    
+    <Expandable title="Security Considerations">
+      - Use secure random strings for code challenges
+      - Store tokens securely on device
+      - Implement token refresh logic
+    </Expandable>
+  </Tab>
+</Tabs>
+
+## Token Management
+
+Learn how to manage and rotate your authentication tokens effectively.
+
+<ExpandableGroup>
+  <Expandable title="Token Expiration">
+    API tokens expire after 30 days by default. Plan for token renewal.
+  </Expandable>
+  <Expandable title="Key Rotation">
+    Rotate keys quarterly and update applications accordingly.
+  </Expandable>
+  <Expandable title="Revoking Access">
+    Immediately revoke compromised keys from the dashboard.
+  </Expandable>
+</ExpandableGroup>
+
+## Best Practices
+
+<Columns cols={2}>
+  <div>
+    <h3>Security</h3>
+    - Store keys in environment variables
+    - Use HTTPS for all API calls
+    - Implement rate limiting
+  </div>
+  <div>
+    <h3>Monitoring</h3>
+    - Log authentication failures
+    - Set up alerts for suspicious activity
+    - Monitor token usage patterns
+  </div>
+</Columns>
+
+## Troubleshooting
+
+Common authentication issues and their solutions.
+
+| Issue | Solution |
+|-------|----------|
+| Invalid key error | Check key format and expiration |
+| Rate limit exceeded | Implement exponential backoff |
+| Token expired | Refresh or regenerate token |
+
+## Need Help?
+
+If you're experiencing authentication issues, check our support documentation or contact our team.
+
+<Update label="2024-10-10" description="Auth Update" tags={["security"]}>
+## Authentication Improvements
+
+- Enhanced OAuth flow security
+- Added token refresh endpoints
+</Update>

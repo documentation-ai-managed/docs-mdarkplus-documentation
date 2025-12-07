@@ -1,0 +1,142 @@
+openapi: '3.0.0'
+info:
+  version: 1.0.0
+  title: mdarkplus API
+  description: API for managing documentation spaces and documents
+  license:
+    name: MIT
+servers:
+  - url: https://api.mdarkplus.com/v1
+paths:
+  /documents:
+    get:
+      summary: List all documents
+      description: Retrieves a paginated list of all documents in the user's documentation spaces. This endpoint supports filtering by space ID, document status, and sorting by creation date or last modified timestamp. Returns detailed document metadata including titles, authors, and modification history.
+      operationId: listDocuments
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: A paged array of documents
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Documents'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create a document
+      description: Creates a new document in the specified documentation space. This endpoint accepts document content in Markdown format along with metadata such as title, tags, and visibility settings. Upon successful creation, it returns the complete document object with generated ID and timestamps.
+      operationId: createDocuments
+      responses:
+        201:
+          description: Document created successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /documents/{documentId}:
+    get:
+      summary: Info for a specific document
+      description: Retrieves detailed information about a specific document by its unique identifier. This endpoint returns the full document content, metadata, version history, and associated comments. It's useful for displaying individual documents in documentation viewers or for programmatic content retrieval.
+      operationId: showDocumentById
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          description: The id of the document to retrieve
+          schema:
+            type: string
+      responses:
+        200:
+          description: Document details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Documents'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update a document
+      description: Updates an existing document with new content or metadata. This endpoint allows partial updates, so you can modify just the title, content, or other fields without affecting unchanged attributes. Changes are tracked in the document's version history for audit purposes.
+      operationId: updateDocument
+      responses:
+        200:
+          description: Document updated successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete a document
+      description: Permanently removes a document from the documentation space. This action cannot be undone, so it's recommended to use with caution. Deleted documents are moved to a trash system where they can be restored within 30 days if needed.
+      operationId: deleteDocument
+      responses:
+        204:
+          description: Document deleted successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Document:
+      required:
+        - id
+        - title
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        spaceId:
+          type: string
+        authorId:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    Documents:
+      type: array
+      items:
+        $ref: '#/components/schemas/Document'
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

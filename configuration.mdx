@@ -1,0 +1,136 @@
+---
+title: Configuration
+description: Configure your mdarkplus documentation spaces and customize settings
+---
+
+## Configuration Basics
+
+Configuring your mdarkplus documentation space involves setting up themes, permissions, and integrations to match your project's needs.
+
+<Callout kind="info">
+  Configuration changes take effect immediately, but may require a page refresh to see updates.
+</Callout>
+
+## Space Settings
+
+Customize your documentation space with branding and basic settings.
+
+<Steps>
+  <Step title="Access Settings" icon="settings">
+    Navigate to your space settings in the dashboard.
+  </Step>
+  <Step title="Update Branding" icon="palette">
+    Set your space name, logo, and color scheme.
+    
+    <CodeGroup tabs="JSON,YAML">
+      ```json
+{
+  "name": "My Documentation",
+  "theme": "dark",
+  "primaryColor": "#3B82F6"
+}
+```
+      ```yaml
+name: My Documentation
+theme: dark
+primaryColor: '#3B82F6'
+```
+    </CodeGroup>
+  </Step>
+  <Step title="Save Changes" icon="save">
+    Apply your configuration updates.
+  </Step>
+</Steps>
+
+## Permission Management
+
+Control who can access and edit your documentation.
+
+<Tabs>
+  <Tab title="Roles" icon="users">
+    Define user roles and permissions.
+    
+    <Expandable title="Available Roles">
+      - Admin: Full access
+      - Editor: Can modify content
+      - Viewer: Read-only access
+    </Expandable>
+  </Tab>
+  <Tab title="Teams" icon="user-group">
+    Manage team-based access.
+    
+    <Expandable title="Team Settings">
+      - Add team members
+      - Set team permissions
+      - Enable notifications
+    </Expandable>
+  </Tab>
+</Tabs>
+
+## Integration Setup
+
+Connect mdarkplus with your development workflow.
+
+<ExpandableGroup>
+  <Expandable title="GitHub Integration">
+    Sync documentation with GitHub repositories for version control.
+  </Expandable>
+  <Expandable title="Slack Notifications">
+    Get notified about documentation changes in Slack.
+  </Expandable>
+  <Expandable title="API Webhooks">
+    Set up webhooks for real-time updates.
+  </Expandable>
+</ExpandableGroup>
+
+## Advanced Configuration
+
+Fine-tune your documentation experience with advanced settings.
+
+<Columns cols={3}>
+  <Card title="Search" icon="search" href="#search-config">
+    Configure search indexing and filters.
+  </Card>
+  <Card title="Analytics" icon="bar-chart" href="#analytics-config">
+    Set up usage tracking and reporting.
+  </Card>
+  <Card title="Backup" icon="archive" href="#backup-config">
+    Configure automatic backups.
+  </Card>
+</Columns>
+
+## Configuration API
+
+Use our API to programmatically manage configurations.
+
+<Request tabs="POST" show-lines="true">
+  ```json
+{
+  "method": "POST",
+  "url": "/api/v1/config",
+  "headers": {
+    "Authorization": "Bearer YOUR_API_KEY",
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "theme": "dark",
+    "primaryColor": "#3B82F6"
+  }
+}
+```
+</Request>
+
+## Troubleshooting Configuration
+
+| Issue | Solution |
+|-------|----------|
+| Changes not applying | Clear browser cache |
+| Permission denied | Check user role settings |
+| Integration failing | Verify API credentials |
+
+<Update label="2024-10-12" description="Config Enhancement" tags={["feature"]}>
+## Configuration Updates
+
+- Added advanced permission controls
+- Improved integration options
+</Update>

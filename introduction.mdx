@@ -1,0 +1,91 @@
+---
+title: Introduction
+description: Overview of mdarkplus Documentation and its core capabilities
+---
+
+## Getting Started
+
+mdarkplus is a comprehensive documentation platform designed to help teams organize, manage, and publish project documentation efficiently. Whether you're building APIs, creating user guides, or maintaining technical documentation, mdarkplus provides the tools you need to create professional, searchable documentation spaces.
+
+<Columns cols={3}>
+  <Card title="Quick Start" icon="rocket" href="authentication">
+    Begin by setting up authentication to access your documentation spaces.
+  </Card>
+  <Card title="Configure" icon="settings" href="configuration">
+    Customize your documentation settings and integrations.
+  </Card>
+  <Card title="Integrate" icon="webhook" href="webhooks">
+    Connect webhooks for real-time updates and notifications.
+  </Card>
+</Columns>
+
+## Key Features
+
+mdarkplus offers a range of features to streamline your documentation workflow. Our platform supports multiple documentation formats, version control integration, and collaborative editing capabilities.
+
+<Tabs>
+  <Tab title="Platform" icon="server">
+    Deploy on our cloud platform or self-host for complete control.
+    
+    <Steps>
+      <Step title="Sign Up" icon="user-plus">
+        Create your account at mdarkplus.com to get started.
+      </Step>
+      <Step title="Create Space" icon="folder-plus">
+        Set up your first documentation space for your project.
+      </Step>
+      <Step title="Import Docs" icon="upload">
+        Import existing documentation or start creating new content.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="API" icon="code">
+    Access comprehensive REST APIs for programmatic documentation management.
+    
+    <CodeGroup tabs="JavaScript,Python">
+      ```javascript
+const client = new mdarkplus.Client('your-api-key');
+const docs = await client.getDocuments();
+```
+      ```python
+from mdarkplus import Client
+client = Client('your-api-key')
+docs = client.get_documents()
+```
+    </CodeGroup>
+  </Tab>
+</Tabs>
+
+## Use Cases
+
+<ExpandableGroup>
+  <Expandable title="API Documentation">
+    Perfect for teams building and maintaining API references with automatic generation from OpenAPI specs.
+  </Expandable>
+  <Expandable title="Product Guides">
+    Create comprehensive user guides, tutorials, and onboarding materials.
+  </Expandable>
+  <Expandable title="Internal Wikis">
+    Build internal knowledge bases and documentation for development teams.
+  </Expandable>
+</ExpandableGroup>
+
+## Why mdarkplus?
+
+<Callout kind="info">
+  mdarkplus combines ease of use with powerful features, making it the ideal choice for modern documentation needs.
+</Callout>
+
+Our platform includes built-in search functionality, version history tracking, and seamless integration with popular development tools. With mdarkplus, you can focus on creating great content while we handle the infrastructure.
+
+## Getting Help
+
+Need assistance? Our documentation includes comprehensive guides, and our support team is always ready to help.
+
+<Update label="2024-10-15" description="v1.0.0" tags={["feature"]}>
+## Initial Release
+
+- Core documentation platform features
+- API access and management
+- Webhook integrations
+</Update>
